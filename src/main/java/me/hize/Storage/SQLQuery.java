@@ -1,18 +1,23 @@
 package me.hize.Storage;
 
 import co.aikar.idb.DB;
+
 import java.sql.SQLException;
 import java.util.List;
 
-public class SQL {
+public class SQLQuery {
 
-    public SQL() {}
+    public SQLQuery() {}
 
     public List<Integer> selectAllID() throws SQLException {
         List<Integer> results;
         results = DB.getFirstColumnResults("SELECT id FROM questions");
 
         return results;
+    }
+
+    public String getSetting(String key) throws SQLException {
+        return DB.getFirstColumn("SELECT "+key+" FROM settings");
     }
 
     public int insert(String user, String guild, String channel, String message, String date) throws SQLException {
@@ -37,6 +42,11 @@ public class SQL {
     public void update(int id, String newQuestion, String newReponse) throws SQLException {
         DB.executeUpdate("UPDATE questions SET question = ?, reponse = ? WHERE id = ?",
                 newQuestion, newReponse, id);
+
+    }
+
+    public void updateSetting(String key, String value) throws SQLException {
+        DB.executeUpdate("UPDATE settings SET ? = ?", key, value);
 
     }
 

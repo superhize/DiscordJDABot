@@ -1,6 +1,3 @@
 .idea
-log.db
-questions.db
-.gitignore
 build
 settings.db
